@@ -1,6 +1,7 @@
 package com.kin.finalprojec.services;
 
 //import JavaBeansclasses.Category;
+
 import com.kin.finalprojec.beans.Category;
 import com.kin.finalprojec.beans.Coupon;
 import com.kin.finalprojec.beans.Customer;
@@ -18,13 +19,23 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class CustomerServices {
+public class CustomerServices extends CllientFacade {
     @Autowired
     CouponRepo repo;
     @Autowired
     CustomerRepo customerRepo;
 
     private int customerID = 1;
+    public boolean login(String email, String password) {
+        Customer customer = customerRepo.findByEmailAndPassword(email,password);
+        if(customer != null)
+        {
+            customerID = customer.getId();
+            return true;
+        }
+        return false;
+    }
+
 
     public void purchaseCoupon(int customerId, int couponId) {
 

@@ -1,6 +1,6 @@
 package com.kin.finalprojec;
 
-import DAO.CouponsDAO;
+
 import com.kin.finalprojec.beans.Coupon;
 import com.kin.finalprojec.dao.CouponRepo;
 import com.kin.finalprojec.services.CompanyServices;

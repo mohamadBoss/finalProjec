@@ -16,11 +16,6 @@ public class AdminController {
 
     @Autowired
     CompanyServices companyServices;
-    @PostMapping()
-    public boolean login (String email, String password)
-    {
-        return ;
-    }
     @PostMapping("/companies/addCompany")
     public void addCompany(@RequestBody Company company) {
         services.addCompany(company);

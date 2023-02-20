@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CompanyServices {
+public class CompanyServices extends CllientFacade {
     private int companyID = 1;
     @Autowired
     CouponRepo repo;
@@ -28,8 +28,14 @@ public class CompanyServices {
     CustomerRepo customerRepo;
     @Autowired
     CompanyRepo companyRepo;
-    public boolean login(String email, String password) throws SQLException {
-        return companyRepo.findByEmailAndPassord(email, password);
+    public boolean login(String email, String password) {
+        Company company =  companyRepo.findByEmailAndPassword(email, password);
+        if (company != null)
+        {
+            companyID = company.getId();
+            return true;
+        }
+        return false;
     }
 
     public void addCoupon(Coupon coupon) {

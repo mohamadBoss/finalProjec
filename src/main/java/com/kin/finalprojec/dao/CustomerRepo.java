@@ -8,6 +8,8 @@ import java.util.List;
 public interface CustomerRepo extends JpaRepository<Customer,Integer> {
     Customer findByEmail(String email);
 
+    Customer findByEmailAndPassword(String email, String password);
+
 //    boolean finByEmailAndPassword(String email, String password);
 
 //    boolean exists(String email, String password);
