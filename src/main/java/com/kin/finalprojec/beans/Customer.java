@@ -25,12 +25,6 @@ public class Customer {
     String lastName;
     String email;
     String password;
-//    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}/*, orphanRemoval = true*/)
-//    @JoinTable(
-//            name = "customer_vs_coupons",
-//            joinColumns = {@JoinColumn(name = "customer_id", referencedColumnName = "id")},
-//            inverseJoinColumns = {@JoinColumn(name = "coupon_id", referencedColumnName = "id")})
-//    public List<Coupon> coupons;
 
     @ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
     @JoinTable(

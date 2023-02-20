@@ -1,5 +1,6 @@
 package com.kin.finalprojec.services;
 
+import Fasade.ClientFacade;
 import com.kin.finalprojec.beans.Company;
 import com.kin.finalprojec.beans.Coupon;
 import com.kin.finalprojec.beans.Customer;
@@ -14,12 +15,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AdminServices {
+public class AdminServices extends ClientFacade {
     @Autowired
     CompanyRepo repo;
     @Autowired
     CustomerRepo repo2;
-
+    public boolean login (String email, String password)
+    {
+        return (email == "admin@admin.com" && password == "admin");
+    }
     public void addCompany(Company company) {
         Company company1 = repo.findByEmailOrName(company.getEmail(), company.getName());
         if (company1 == null) {

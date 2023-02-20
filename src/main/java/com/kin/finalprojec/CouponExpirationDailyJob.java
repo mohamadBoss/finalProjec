@@ -1,6 +1,8 @@
 package com.kin.finalprojec;
 
+import DAO.CouponsDAO;
 import com.kin.finalprojec.beans.Coupon;
+import com.kin.finalprojec.dao.CouponRepo;
 import com.kin.finalprojec.services.CompanyServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -16,15 +18,13 @@ public class CouponExpirationDailyJob {
     @Scope("singleton")
     public class SchedulingConfig {
         @Autowired
-        CompanyServices services;
+        private CouponRepo services;
 
         @Scheduled(cron = "0 0 0 * * *")// run at 12:00 AM every day
         public void run() {
-            List<Coupon> coupons = services.getAllCoupon();
-//           coupons.stream().filter(coupon -> coupon.getEndDate().before(new Date())).forEach(coupon -> couponsDAO.DeleteCoupon(coupon.getId()));
-
+            List<Coupon> coupons = services.findAll();
             List<Coupon> expiredCoupons = coupons.stream().filter(coupon -> coupon.getEndDate().before(new Date())).collect(Collectors.toList());
-            expiredCoupons.forEach(coupon -> services.DeleteCoupon(coupon.getId()));
+            expiredCoupons.forEach(coupon -> services.deleteById(coupon.getId()));
         }
     }
 

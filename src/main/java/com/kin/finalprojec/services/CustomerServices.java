@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServices {
@@ -39,8 +40,12 @@ public class CustomerServices {
 
 
     public  List<Coupon> getCustomerCoupons(Category category) {
-        return customerRepo.findById(this.customerID).get().getCoupons();
+        List<Coupon> coupons = customerRepo.findById(this.customerID).get().getCoupons();
+        return coupons.stream()
+                .filter(coupon -> coupon.getCategory() == category)
+                .collect(Collectors.toList());
     }
+
 
     public  List<Coupon> getCustomerCoupons(double maxPrice) {
         List<Coupon> coupons = getCustomerCoupons();

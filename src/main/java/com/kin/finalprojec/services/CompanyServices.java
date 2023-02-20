@@ -13,6 +13,7 @@ import com.kin.finalprojec.dao.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,9 @@ public class CompanyServices {
     CustomerRepo customerRepo;
     @Autowired
     CompanyRepo companyRepo;
+    public boolean login(String email, String password) throws SQLException {
+        return companyRepo.findByEmailAndPassord(email, password);
+    }
 
     public void addCoupon(Coupon coupon) {
 
