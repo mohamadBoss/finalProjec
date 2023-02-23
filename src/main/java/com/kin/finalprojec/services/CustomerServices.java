@@ -41,8 +41,15 @@ public class CustomerServices extends CllientFacade {
 
         Optional<Customer> customer = customerRepo.findById(customerId);
         Optional<Coupon> coupon = repo.findById(couponId);
-        customer.get().getCoupons().add(coupon.get());
-        customerRepo.save(customer.get());
+        if(coupon.get().getAmount() > 0)
+        {
+            customer.get().getCoupons().add(coupon.get());
+            customerRepo.save(customer.get());
+            System.out.printf("Coupon successfully purchased\n");
+            coupon.get().setAmount(coupon.get().getAmount()-1);
+            repo.save(coupon.get());
+        }else System.out.printf("Out of stock coupon not purchased");
+
     }
 
     public List<Coupon> getCustomerCoupons(){
